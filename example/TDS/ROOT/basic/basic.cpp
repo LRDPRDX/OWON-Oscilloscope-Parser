@@ -2,6 +2,7 @@
 #include <TGraph.h>
 #include <TCanvas.h>
 #include <TLine.h>
+#include <TMarker.h>
 #include <TAxis.h>
 #include <TLegend.h>
 
@@ -27,9 +28,8 @@ void basic()
     TGraph* g = new TGraph();
 
     //Create lines to visualize trigger time, baseline etc...        
-    TLine* tl = new TLine();
-        tl->SetLineStyle( kDashed );
-        tl->SetLineWidth( 2 );
+    TMarker* tm = new TMarker();
+        tm->SetMarkerStyle( 23 );
     TLine* bl = new TLine(); 
         bl->SetLineStyle( 7 );
         bl->SetLineWidth( 2 );
@@ -46,10 +46,8 @@ void basic()
             g->SetPoint( std::distance( p.cbegin(), point ), point->time, point->voltage );
         }
 
-        tl->SetY1( -p.get_height()/2 );
-        tl->SetY2( p.get_height()/2 );
-        tl->SetX1( p.get_trigger_time() );
-        tl->SetX2( p.get_trigger_time() );
+        tm->SetX( p.get_trigger_time() );
+        tm->SetY( p.get_height()/2 );
 
         //Calc baseline, amplitude, pkpk and etc.
         a.set_baseline_time( 0.8*p.get_trigger_time() );
@@ -77,12 +75,12 @@ void basic()
 
     TLegend* leg = new TLegend( 0.8, 0.9, 0.9, 0.8 );
         leg->AddEntry( g, "data", "pl" );
-        leg->AddEntry( tl, "trigger", "l" );
+        leg->AddEntry( tm, "trigger", "p" );
         leg->AddEntry( bl, "baseline", "l" );
         leg->AddEntry( al, "amplitude", "l" );
 
     g->Draw( "APL" );
-    tl->Draw( "same" );
+    tm->Draw( "same" );
     bl->Draw( "same" );
     al->Draw( "same" );
     leg->Draw( "same" );
