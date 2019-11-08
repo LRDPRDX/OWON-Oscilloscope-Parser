@@ -12,6 +12,9 @@ For now the following oscilloscope models are available for parsing
   * SDS7072
   * SDS8302
 
+If your oscilloscope is not presented in this list you can send me a letter with a request
+to write a parser for your model.
+
 # Installation
 For the installation process see the documentation (Sec. **Installation**)
 
