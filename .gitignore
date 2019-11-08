@@ -3,6 +3,7 @@
 /obj
 /lib
 /src/ROOT/Drawer
+/inc/ROOT/Drawer.h
 /src/ROOT/TreeCreator/TreeCreator_*
 /example/TDS/ROOT/basic/basic_*
 /example/TDS/ROOT/create_tree/CreateTree_*
