@@ -27,10 +27,12 @@ The documentation is available here: `doc/users_guide.pdf`
 # Feedback
 Report bugs or suggest to paradox1859@gmail.com
 
+# TODO's
+- [] Add polarity to channel
+
 # Test plots
 As a test I've plotted a waveform using this library (left image) and the official software (right image). Looks pretty well :)
 <p float="left">
   <img src="https://github.com/LRDPRDX/OWON-Oscilloscope-Parser/blob/master/example/TDS/pictures/csi_tl_parser.png" height="250">
   <img src="https://github.com/LRDPRDX/OWON-Oscilloscope-Parser/blob/master/example/TDS/pictures/csi_tl_soft.png" height="250">
 </p>
-
