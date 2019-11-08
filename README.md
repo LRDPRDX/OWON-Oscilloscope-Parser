@@ -28,7 +28,7 @@ The documentation is available here: `doc/users_guide.pdf`
 Report bugs or suggest to paradox1859@gmail.com
 
 # TODO's
-- [] Add polarity to channel
+- [ ] Add polarity to channel
 
 # Test plots
 As a test I've plotted a waveform using this library (left image) and the official software (right image). Looks pretty well :)
