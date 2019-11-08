@@ -9,7 +9,7 @@ CPPFLAGS 	= -Wall -Wextra
 LIB     	= -lowonparse
 
 #directories
-MAIN_DIR 	= ../../..
+MAIN_DIR 	= ../../../../
 INC_DIR     = $(MAIN_DIR)/inc
 DEV_DIR 	= $(INC_DIR)/device
 
