@@ -1,0 +1,15 @@
+/data
+/test
+/obj
+/lib
+/src/ROOT/Drawer
+/src/ROOT/TreeCreator/TreeCreator_*
+/example/TDS/ROOT/basic/basic_*
+/example/TDS/ROOT/create_tree/CreateTree_*
+/example/TDS/stand_alone/two_channels/two_channels
+/example/SDS/ROOT/two_channels/two_channels_*
+/example/SDS/stand_alone/sds6062/basic
+/example/SDS/stand_alone/sds7072/basic
+/example/SDS/stand_alone/sds8302/basic
+*.sw*
+*.sw*

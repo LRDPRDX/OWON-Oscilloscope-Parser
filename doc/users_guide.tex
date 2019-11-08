@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+%GENERAL
+\usepackage[a4paper, inner=2cm, outer=1cm, top=2cm, bottom=2cm]{geometry}
+
+%
+\usepackage{amsmath}
+%Figures & refs
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx, calc}
+\usepackage{enumerate}
+
+%Caption
+\usepackage{caption}
+\usepackage[dvipsnames]{xcolor}
+\DeclareCaptionFont{black}{\color{black}}
+\DeclareCaptionType{algorithm}[Algorithm][List of algorithms]
+
+%CODE
+\captionsetup[lstlisting]{labelfont=black,textfont=black}
+\usepackage{listings}     
+\usepackage{lstautogobble}  % Fix relative indenting
+\usepackage{zi4}            % Nice font
+
+%TIKZ
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+
+\definecolor{keywords}{rgb}{0.93, 0.0, 0.71}
+\definecolor{comments}{rgb}{0.6, 0.44, 0.80}
+\definecolor{types}{rgb}{0.11, .1, 1.0}
+\definecolor{numbers}{rgb}{0.6, 0.48, 0.78}
+\definecolor{background}{rgb}{0.9, 0.9, 0.9}
+\definecolor{foreground}{rgb}{0., 0., 0.}
+\definecolor{strings}{rgb}{0.5, 0.0, 0.5}
+
+\usepackage{listings}
+\lstset{
+    language=c++,
+    autogobble,
+    columns=fullflexible,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={(*@}{@*)},
+    emph={int, int32_t, float, double, unsigned, void, bool, char},
+    emphstyle={\color{types}},
+    backgroundcolor=\color{background},
+    commentstyle=\color{comments},
+    keywordstyle=\color{keywords},
+    stringstyle=\color{strings},
+    numberstyle=\color{numbers},
+    basicstyle=\linespread{1.1}\ttfamily\color{foreground},
+    frame=lbtr,
+    framesep=0.1cm,
+    xleftmargin=0.0cm,
+    tabsize=4,
+    captionpos=b,
+}
+\renewcommand{\lstlistingname}{Code}
+\newcommand{\codet}[1]{\textbf{\textcolor{black!80}{\texttt{#1}}}}
+\newcommand{\tus}{\textunderscore}
+\newcommand{\blt}[1]{\textcolor{blue}{#1}}
+
+%NOTIONS AND WARNINGS
+\newcommand{\Note}[1]{\vspace{0.5cm}\textcolor{blue}{NOTE: }{#1}\vspace{0.5cm}}
+\newcommand{\Warning}[1]{\vspace{0.5cm}\textcolor{red}{WARNING: }{#1}\vspace{0.5cm}}
+
+
+\title{Software to work with OWON oscilloscope's binary files}
+\author{LRDPRDX}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%BEGIN%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\input{./intro.tex}
+\input{./install.tex}
+\input{./usage.tex}
+\input{./feedback.tex}
+\input{./reference.tex}
+
+\end{document}

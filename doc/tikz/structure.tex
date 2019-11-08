@@ -1,0 +1,120 @@
+\tikzstyle{namespace}=[rectangle, draw=black, rounded corners, fill=white, drop shadow,
+        text centered, anchor=north, text=black, text width=3cm]
+\tikzstyle{class}=[rectangle, draw=black, rounded corners, fill=blue!20, drop shadow,
+        text centered, anchor=north, text=black, text width=3cm]
+\tikzstyle{struct}=[rectangle, draw=black, rounded corners, fill=green!20, drop shadow,
+        text centered, anchor=north, text=white, text width=3cm]
+\tikzstyle{derive}=[->, >=open triangle 90, thick]
+\tikzstyle{aggregate}=[->, >=diamond, thick]
+\tikzstyle{line}=[thick]
+\tikzstyle{contain}=[-o]
+        
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=3cm]
+    \node (owon) [namespace]
+        {
+            \codet{owon} 
+        };
+    \node (tds8204) [namespace, below=2cm of owon]
+        {
+            \codet{tds8204}
+        };
+    \node (sds6062) [namespace, left=2cm of tds8204]
+        {
+            \codet{sds6062}
+        };
+    \node (sds7072) [namespace, right=2cm of tds8204]
+        {
+            \codet{sds7072}
+        };
+    \node (analyzer) [class, rectangle split, rectangle split parts=2, above=2cm of owon]
+        {
+            \codet{analyzer}
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{analyze()}
+                    \item[+] \codet{set\tus gate()}
+                \end{itemize}
+        };
+    \node (oscilloscope) [class, rectangle split, text width=6cm,  rectangle split parts=3, left=1cm of analyzer]
+        {
+            \codet{oscilloscope}
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{vector<channel> channels}
+                \end{itemize}
+            \nodepart{third}
+                \begin{itemize}
+                    \item[+] \codet{virtual parse() = 0}                 
+                    \item[+] \codet{get\tus wave\tus size()}
+                    \item[+] \codet{set\tus active\tus channel()}
+                \end{itemize}
+        };
+    \node (parser) [class, rectangle split, text width=3cm, rectangle split parts=2, below=1cm of tds8204]
+        {
+            \codet{parser} 
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{parse()}
+                \end{itemize}
+        };
+    \node (parser2) [class, rectangle split, text width=3cm, rectangle split parts=2, below=1cm of sds6062]
+        {
+            \codet{parser} 
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{parse()}
+                \end{itemize}
+        };
+    \node (parser3) [class, rectangle split, text width=3cm, rectangle split parts=2, below=1cm of sds7072]
+        {
+            \codet{parser} 
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{parse()}
+                \end{itemize}
+        };
+
+    \node (channel) [class, rectangle split, text width=5cm, rectangle split parts=2, right=1cm of analyzer]
+        {
+            \codet{channel} 
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{vector<point> points}                 
+                \end{itemize}
+        };
+
+    \node (point) [struct, rectangle split, text width=3cm, rectangle split parts=2, right=2cm of owon]
+        {
+            \codet{point} 
+            \nodepart{second}
+                \begin{itemize}
+                    \item[+] \codet{time}
+                    \item[+] \codet{voltage}
+                \end{itemize}
+        };
+
+        \draw[contain] (owon.south) to (tds8204.north);
+        \draw[contain] (owon.south) to (sds6062.north);
+        \draw[contain] (owon.south) to (sds7072.north);
+        \draw[contain] (owon.north) to (oscilloscope.south);
+        \draw[contain] (owon.north) to node[right]{contains} (analyzer.south);
+        \draw[contain] (sds6062.south) to (parser2.north);
+        \draw[contain] (sds7072.south) to (parser3.north);
+        \draw[contain] (tds8204.south) to (parser.north);
+        \draw[contain] (owon.east) to (point.west);
+
+        \draw[aggregate] (point.north) to (channel.south);
+
+        \node (aux) [left=1cm of oscilloscope]{};
+        \draw[line] (parser2.west) -| (aux.east);
+        \draw[derive] (aux.east) to (oscilloscope.west);
+
+        \node (aux2) [above=1cm of oscilloscope]{};
+        \draw[line] (channel.north) |- (aux2.south);
+        \draw[aggregate] (aux2.south) to (oscilloscope.north);
+\end{tikzpicture}
+\caption{Structure of the library. Colorless rectangles --- \codet{namespace}s, green --- \codet{structure}s, blue --- \codet{classe}s. Open triangle arrows --- inheritance, diamonds --- aggregation, circles --- containing}
+\label{fig:diag}
+\end{figure}

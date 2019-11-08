@@ -1,0 +1,359 @@
+\section{Usage}
+In order to prevent name conflicts and keep global scope clean everything is placed into
+namespace \codet{owon}. In the below code the \codet{using} declaration is \emph{not}
+assumed so each entity of the library appears with the \codet{owon::} prefix.
+However, it would be useful to make a namespace alias to type less (see below). 
+
+This chapter covers two forms of usage:
+\begin{itemize}
+    \item as a stand-alone pure C++ software
+    \item as a part of the software based on the \textbf{ROOT CERN} framework
+\end{itemize}
+
+\subsection{Stand-alone}
+This software is used to get two kinds of information about a waveform: \emph{primary}
+and \emph{secondary}. Primary information consists of data encoded in a binary file itself
+such as \emph{voltage per division, number of channels, data points, 
+etc}.
+Secondary information contains results of some analysis of data points:
+\emph{baseline level,
+amplitude, integral, etc} and, obviously, based on the primary one.
+
+\subsubsection*{Terminology} Extracting primary and secondary information from a binary
+file is called \emph{parsing} and \emph{analysis}, respectively, in this document.
+
+\subsubsection{Parsing}\label{sssec:parsing}
+To parse a binary file the following algorithm should be executed:
+\begin{enumerate}
+    \item Choose a model namespace
+    \item Create an instance of the \codet{parser} class
+    \item Call \codet{parser::parse} member function
+    \item Choose the channel with \codet{parser::set\tus active\tus channel} member function
+    \item Get information via get-methods
+    \captionof{algorithm}{Parsing of a binary file}
+    \label{algo:parse}
+\end{enumerate}
+Below each step of the above algorithm is explained in detail.
+
+\paragraph*{Model namespace.}
+As it was mentioned above everything is contained in the \codet{owon} namespace.
+The \codet{owon} namespace itself includes separate namespace for each model with
+a name the same as the model name (lowercase). Such a namespace will be called
+\emph{a model namespace} in the below text. To choose model namespace corresponding
+to your scope you include its header which is
+\begin{lstlisting}
+device/<model_name>.h
+\end{lstlisting}
+where \codet{<model\tus name>} matches the model name with the letters in lower case.
+Also it is convenient to create a namespace alias to type less. For example, if your
+oscilloscope is SDS6062 then the following two lines should be in your code (though the second one is not mandatory):
+\begin{lstlisting}
+#include "device/sds6062.h"
+
+namespace osc = owon::sds6062;//alias
+\end{lstlisting}
+
+\paragraph*{The \codet{parser} class.}A model namespace contains the \codet{parser} class --- the class that is responsible
+for the extraction information (parsing) from binary files. The \codet{parser} class is
+one of the two (along with the \codet{analyzer} class) most important tools in this
+software. At least one instance of this class must be created:
+\begin{lstlisting}
+osc::parser p;//create parser
+\end{lstlisting}
+
+\paragraph{The \codet{parser::parse} member.} Once an instance of the \codet{parser} class
+is created you use its member function \codet{parse} to extract information from a binary.
+It takes the only argument --- path to the binary file (it may be either absolute or relative,
+with an extension) to be parsed:
+\begin{lstlisting}
+p.parse( "path/to/binary/file.bin" );//NOTE: the extension is present
+\end{lstlisting}
+\paragraph{Setting the active channel and getting information.}
+After successful (see below) execution of the above
+code the extracted information is
+accessible through the get-methods of the \codet{parser} class. However, most of these
+methods are intended to provide information about \emph{individual} channel:
+\emph{voltage per division, time per division, data points, etc}. This channel is
+called the \emph{active channel} in the software.
+Use \codet{parser::set\tus active\tus channel} member function to choose what channel is active:
+
+\begin{lstlisting}
+p.set_active_channel( owon::CH1 );//select the channel
+//returns voltage per division of the active channel --- CH1
+p.get_voltage_per_div();
+
+p.set_active_channel( owon::CH2 );//select the channel
+//returns voltage per division of the active channel --- CH2
+p.get_voltage_per_div();
+
+//iterate over data points of the active channel --- CH2
+for( sds::parser::const_point_iterator point = p.cbegin(); point != p.cend(); ++point )
+{
+    //do something with points...
+    std::cout << "Point is ( " << point->time << ", " << point->voltage << ") \n";
+}
+\end{lstlisting}
+For the full list of availalble get-methods see Sec.~\ref{ssec:ref:osc}~(\codet{class oscilloscope}).
+
+\subsubsection{Analysis}\label{sssec:anal}
+The \codet{owon} namespace also includes the \codet{analyzer} class. It performs simple
+but often very useful operations on a waveform: calculation of the baseline level, finding
+the point of maximum amplitude, etc. Use the following algorithm to analyse a waveform: 
+
+\begin{enumerate}
+    \item Create an instance of the \codet{parser} class (see Sec.~\ref{sssec:parsing})
+    \item Parse a waveform (see Sec.~\ref{sssec:parsing})        
+    \item Create an instance of the \codet{analyzer} class 
+    \item Set the channel to be analyzed as the active one (see Sec.~\ref{sssec:parsing})
+    \item Set the analysis config if needed 
+    \item Call \codet{analyzer::analyze} member function to perform analysis 
+    \item Call get-methods of the \codet{analyzer} class to get the results
+    \captionof{algorithm}{Waveform analysis}
+    \label{algo:anal}
+\end{enumerate}
+This class is not autonomous --- it works in pair with the \codet{parser} class. Before
+instantiating the \codet{analyzer} an instance of the \codet{parser} class must have been
+created. Therefore, the first two steps are required.
+
+\begin{lstlisting}
+#include "analyzer.h"
+#include "device/sds6062.h"
+
+namespace osc = owon::sds6062;
+
+//somewhere in the code
+osc::parser p;
+p.parse( "path/to/binary/file.bin" )
+...
+\end{lstlisting}
+
+\paragraph*{The \codet{analyzer} class.} The constructor of the \codet{analyzer} class
+takes pointer to a \codet{parser} object as an argument:
+\begin{lstlisting}
+owon::analyzer a( &p );//create analyzer
+\end{lstlisting}
+
+\paragraph*{The active channel.} The role of the active channel (see Sec.~\ref{sssec:parsing})
+in the analysis process is simple --- all the analysis is performed on the data points
+of the active channel.
+
+\paragraph*{The analysis config.} Next step is to set the analysis config
+
+\begin{lstlisting}
+a.set_baseline_time( p.get_trigger_time() );//set the range for baseline calculation from the beginning of the waveform to its trigger time
+a.set_gate( 0.3, 0.8 );//set the integration range from 300 to 800 ns
+
+a.analyze();
+\end{lstlisting}
+
+\paragraph*{Getting the results.} Use the get-methods of the \codet{analyzer} class to
+get the results of analysis:
+\begin{lstlisting}
+a.get_baseline();
+a.get_integral();
+\end{lstlisting}
+For the full list of the get-methods see Sec.~\ref{ssec:ref:anal} (\codet{class analyzer}).
+
+\newpage
+\subsubsection{Compilation}
+Here is the code of a minimal example and how to compile it.
+\begin{lstlisting}[numbers=left]
+#include <iostream>
+
+#include "device/sds6062.h"
+#include "analyzer.h"
+
+namespace osc = owon::sds6062;//alias
+
+
+int main()
+{
+    osc::parser p;//create parser
+    owon::analyzer a( &p );//create analyzer
+    
+    p.parse( "path/to/binary/file.bin" );//NOTE: the extension is present
+    
+    if( p.get_status() )//if successfully parsed
+    {
+        p.print();
+    
+        a.set_gate( -1, -1 );//see reference guide
+        a.set_baseline_time( -1 );//see reference guide
+    
+        a.analyze();
+        a.print();
+    }
+    else
+    {
+        std::cerr << "Something went wrong" << std::endl;
+    }
+    
+    return 0;
+}
+    
+\end{lstlisting}
+Provided you have saved the above code to the file named \codet{example.cpp}, and
+appended the \codet{CPLUS\tus INCLUDE\tus PATH} environment variable as it was
+recommended in Sec.~\ref{sec:install} the compilation is as follows:
+\begin{lstlisting}[language=bash]
+g++ example.cpp -std=c++11 -lowonparse -o example
+\end{lstlisting}
+However, it is more convenient to use \codet{Makefile} to compile your code.
+You could find examples of simple \codet{Makefile}s in the
+\codet{<OWON\tus DIR>/examples} directory.
+
+\subsection{ROOT-compatible}\label{ssec:ROOT}
+In this section it will be explained how to use this library together with the ROOT CERN
+framework, in particular, how to create a \codet{TTree} from several binary files. Provided
+you have followed the instructions in Sec.~\ref{ssec:install:ROOT} the following algorithm
+should be used to create a \codet{TTree} from a set of a binary files:
+\begin{enumerate}
+    \item Create an instance of the \codet{parser} class in the model namespace
+        corresponding to the model of an oscilloscope that was used to record waveforms
+    \item Create an instance of the \codet{TreeCreator} class using previously created
+        \codet{parser}
+    \item Set analysis config and the active channel using member-functions of the \codet{TreeCreator} class
+    \item Call the \codet{CreateTree} member-function
+    \item Compile and run
+    \label{algo:tree}
+    \captionof{algorithm}{Creation of a \codet{TTree}}
+\end{enumerate}
+Below is the explanation the above algorithm in detail. 
+
+\paragraph*{The \codet{TreeCreator} class.} This class is responsible for (no surprise) 
+creation of a \codet{TTree} from 
+To create an instance of this class you, firstly, include its header:
+\begin{lstlisting}
+#include "ROOT/TreeCreator.h"
+\end{lstlisting}
+Then you use the only constructor of this class which takes four arguments:
+\begin{lstlisting}
+TreeCreator( owon::oscilloscope* osc,
+               const std::string& pathToDataDir,
+               const std::string& pathToTreeFile,
+               const std::string& treeFileName )
+\end{lstlisting}
+where
+    \begin{itemize}
+        \item[] \codet{osc} --- pointer to the \codet{oscilloscope} class (which the \codet{parser} class in each model namespace inherits from) that is of the same model that is
+            used to record the binaries
+        \item[] \codet{pathToDataDir} --- path to the directory containing the binaries (see the NOTE below)
+        \item[] \codet{pathToTreeFile} --- path to the location where the resulting \codet{TTree} will be placed
+        \item[] \codet{treeFileName} --- name of a \codet{.root} file (without an extension) with the resulting \codet{TTree}
+    \end{itemize}
+The meaning of the second argument requires additional explanation. There may be two
+cases here. The first is the one when the target directory contains no other directories
+(subdirectories) --- only binary files. I.e. the structure is the following:
+\begin{lstlisting}[language=bash]
+path
+|
+|_to
+  |
+  |_data <--target
+     |
+     |__file1.bin
+     |__file2.bin
+     |__...
+\end{lstlisting}
+In this case, provided the second argument in the \codet{TreeCreator} constructor
+was \codet{"path/to/data"}, THE ONLY \codet{TTree} named \codet{tree\tus} would be constructed
+from all the binaries in the \codet{data} directory. If, on the other hand, the target
+directory contains other directories, for example:
+\begin{lstlisting}[language=bash]
+path
+|
+|_to
+  |
+  |_data <--target
+    |
+    |_data1
+    |   | 
+    |   |__file1.bin
+    |   |__file2.bin
+    |   |__...
+    |
+    |_data2
+      |
+      |__file1.bin
+      |__file2.bin
+      |__...
+\end{lstlisting}
+then, provided the second argument in the \codet{TreeCreator} constructor
+was \codet{"path/to/data"}, TWO \codet{TTree}s named \codet{tree\tus data1} and
+\codet{tree\tus data2} would be constructed from all the binaries in the \codet{data1} and
+\codet{data2} directory (and in its subdirectories), respectively.
+It means that hierarchy of the subdirectories of the target directory doesn't matter:
+all the binaries are searched recursively in a subdirectory of the target directory. I.e.
+the \codet{subsubdata} is expanded when constructing a \codet{TTree} provided the following
+structure:
+\begin{lstlisting}[language=bash]
+path
+|
+|_to
+  |
+  |_data <--target
+    |
+    |_data1 <-- matters
+    |   | 
+    |   |__file1.bin
+    |   |__file2.bin
+    |   |__...
+    |
+    |_data2 <--matters
+      |
+      |__file1.bin
+      |__file2.bin
+      |__...
+      |__subsubdata <-- DOESN'T matter: expanded
+         |__file1.bin
+         |__file2.bin
+         |__...
+\end{lstlisting}
+However, the path (see below) of the every binary is conserved in the resulting
+\codet{TTree}.
+
+After the instantiating the \codet{TreeCreator} you should set the analysis config and
+the active channel
+(see Sec.~\ref{sssec:anal}) which will be used when constructed the \codet{TTree}:
+\begin{lstlisting}
+    tc.SetBaselineTime( -1 );//from the beginning to the trigger time
+    tc.SetGate( -1, 3 );//from the beginning to 3 us
+    tc.SetActiveChannel( owon::CH1 );//the default one
+\end{lstlisting}
+
+After that you call the \codet{CreateTree} member-function. The whole code could be:
+
+\begin{lstlisting}
+#include "ROOT/TreeCreator.h"
+
+#include "device/tds8204.h"
+
+
+void CreateTree()
+{
+    owon::tds8204::parser p;//OWON TDS8204 was used for recording
+
+    TreeCreator tc( &p, "./Data", "./", "myFirstTree" );
+    tc.SetBaselineTime( -1 );
+    tc.SetGate( -1, 3 );
+    tc.SetActiveChannel( owon::CH1 );//the default one
+
+    tc.CreateTree();
+}
+\end{lstlisting}
+
+\paragraph*{Compile and run.} To run the above example create (or append) the \codet{rootlogon.C} file in the directory
+where you put this example with the following line:
+\begin{lstlisting}
+{
+    gSystem->AddLinkedLibs( "path/to/<OWON_DIR>/src/ROOT/TreeCreator/TreeCreator_cpp.so" );
+}
+\end{lstlisting}
+where \codet{/path/to/<OWON\tus DIR>} is the absolute path to the \codet{<OWON\tus DIR>}.
+
+Then type the following in your working directory (it is assumed you have saved the code in the file \codet{CreateTree.C}):
+\begin{lstlisting}
+root -l CreateTree.C+
+\end{lstlisting}
+After that there will appear the file (along with the others) named \codet{myFirstTree.root} in the current directory with a \codet{TTree}. The full example (with the demo data)
+see in the \codet{<OWON\tus DIR>/example/TDS/ROOT/create\tus tree} directory.

@@ -1,0 +1,28 @@
+\section{Introduction}\label{sec:intro}
+If you have \textbf{OWON} oscilloscope you are probably able to use its official software
+to communicate your scope with PC. That software, among others, allows user to record
+waveforms from his/her device. Particularly, it allows to record data continuously (event
+by event). In the latter case data is stored in binary files. However, it seems that
+\textbf{OWON} doesn't provide any information about the structure (protocol) of those
+binary files, and though user can read the data back by the software which produced it
+(data), he/she is not able to use it for further (offline) analysis.
+This software is intended to provide such possibility.
+
+Only oscilloscopes of the following models are verified to be parsed correctly with
+this software:
+\begin{itemize}
+    \item TDS series
+        \begin{itemize}
+            \item TDS8204
+        \end{itemize}
+    \item SDS series
+        \begin{itemize}
+            \item SDS8302
+            \item SDS6062
+            \item SDS7072
+        \end{itemize}
+\end{itemize}
+
+\Warning{If your oscilloscope is not in the above list you should consider to not use this
+software: even if it is parsed without errors the content may be incorrect.
+However, see section~\ref{sec:feedback}}

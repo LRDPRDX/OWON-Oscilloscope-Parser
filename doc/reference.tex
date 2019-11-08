@@ -1,0 +1,590 @@
+\newpage
+\section{Reference guide}\label{sec:ref}
+
+This reference guide is not considered to be complete. In this section only \codet{public}
+members are explained. This is rather a \emph{usage reference guide}.
+
+\Note{The \codet{owon::} prefix is omitted in the below code}
+
+\subsubsection*{Terminology}
+Object of each class listed below has \emph{a state}. In this context a state of an
+object is simply a set of values of its data members. 
+
+\subsection{namespace \codet{owon}}
+
+\subsubsection*{Description}
+
+\hspace{\parindent} The library is entirely contained in the \codet{owon} namespace. The
+schematics of the library structure is shown in Fig.~\ref{fig:diag}.
+
+\input{tikz/structure.tex}
+
+\subsubsection*{\codet{enum}s}
+
+%OWON :: enums
+\begin{lstlisting}
+enum CHANNEL : unsigned { CH1, CH2, CH3, CH4 };
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+Description: & Represents the list of available channels\\
+Values: & \codet{CH1, CH2, CH3, CH4}\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: members
+\subsubsection*{Functions}
+
+%OWON :: ch_to_str
+\begin{lstlisting}
+inline std::string ch_to_str( const CHANNEL ch );
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description: & Represents the list of available channels\\
+    Arguments:   &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{ch} - & channel value\\
+        \end{tabular}\\
+    Return:      & string representation of the channel\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: << ch
+\begin{lstlisting}
+inline std::ostream& operator<<( std::ostream& os, const CHANNEL& ch )
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description:    & Allows user to use stream insertion operator \codet{<<} to print channel values\\
+    Usage example:  & \codet{std::cout << owon::CH2 << std::endl;}\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: classes
+\subsubsection*{\codet{strust}s and \codet{classe}s}
+
+%OWON :: point
+\begin{lstlisting}
+struct point
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description:    & Represents a single data point. Each channel (\codet{channel} class) contains a vector of points (\codet{std::vector<point>}) and each oscilloscope (\codet{oscilloscope} class) has an iterator (\codet{const\tus point\tus iterator}) that iterates over
+    the points of its active channel\\
+    Fields:   &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{float time} & - time mark of a data point (in $\mu$s)\\
+            \codet{float voltage} & - voltage mark of a data point (in mV)\\
+        \end{tabular}\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: channel
+\begin{lstlisting}
+class channel
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description:    & Represents an individual channel. User doesn't use this class directly\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: oscilloscope
+\begin{lstlisting}
+class oscilloscope
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description:    & Abstract. Base class for all parsers. The \codet{parser} class in every model namespace (see Sec.~\ref{sssec:parsing}) derives this class. It has all the get-methods to retrieve the parsed information.\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+%OWON :: analyzer
+\begin{lstlisting}
+class analyzer
+\end{lstlisting}
+
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description:    & Performs some analysis of a waveform\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\newpage
+\subsection{class \codet{oscilloscope}}\label{ssec:ref:osc}
+\subsubsection*{Description}
+
+\hspace{\parindent} --- 
+
+\subsubsection*{\codet{public typedef}s}
+\begin{lstlisting}
+typedef typename std::vector<owon::point>::const_iterator const_point_iterator;  
+\end{lstlisting}
+\begin{tabularx}{0.9\textwidth}{rp{11cm}}
+\toprule
+    Description: & Should be used to iterate over the data points in a waveform\\
+\bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\subsubsection*{\codet{public} members}
+\begin{lstlisting}
+const_point_iterator cbegin() const noexcept
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the first point of a waveform (\textcolor{red}{AC})\\
+    Return: & Iterator to the beginning\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+const_point_iterator cend() const noexcept
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to check if the end of a waveform is reached (\textcolor{red}{AC})\\
+    Return: & Iterator to the end\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+bool set_active_channel( CHANNEL active_channel )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & All the information that is of an individual channel (such as number of data points or voltage per devision) is returned for so called active channel (see Sec.\ref{sssec:parsing}). Therefore, in general getting the information has two stages: setting the
+    active channel and then using the get-methods. NOTE: setting the active channel may fail in case when user tries to set unavailable (not existing) channel as the active one. For example, setting the channel \codet{CH3} as the active one on the \codet{sds6062} model is
+    meaningless because that model has only two channels. In such a case the active channel defaults to \codet{CH1}\\
+    Return: & \codet{true} if channel setting succeeded. \codet{false} otherwise\\
+    Arguments:   &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{CHANNEL active\tus channel} & - channel to be the active one\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+std::string get_serial() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the serial number of the oscilloscope that produced a given binary file\\
+    Return: & Serial number string. It returns \codet{"N/A"} in case when serial number is not available\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+std::string get_model() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the model name of the oscilloscope of a given parser (in model namespace)\\
+    Return: & Model name string\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+bool        get_status() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the current status of the last performed parsing\\
+    Return: & \codet{true} if the last parsing succeeded. \codet{false} otherwise\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+unsigned    get_n_channels() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the number of available channel of a given oscilloscope\\
+    Return: & Number of available channels\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+CHANNEL     get_active_channel() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to monitor the current active channel\\
+    Return: & Current active channel\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+unsigned    get_wave_size() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to know how many points in a waveform (\textcolor{red}{AC})\\
+    Return: & Number of data points\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_voltage_per_div() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get voltage per division (\textcolor{red}{AC})\\
+    Return: & Voltage per division (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_vertical_position() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get vertical position of a zero level (vertical shift). NOTE: it is not necessary the position of the true ground (\textcolor{red}{AC})\\
+    Return: & Vertical position (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_time_per_div() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get time per division (\textcolor{red}{AC})\\
+    Return: & Time per division (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_time_step() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the time between two consecutive points (\textcolor{red}{AC})\\
+    Return: & Time between two consecutive points (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_trigger_time() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the time of the trigger arrival counting from 0\\
+    Return: & Trigger time (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_length() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the length of a waveform (\textcolor{red}{AC})\\
+    Return: & Length of a signal (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float       get_height() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to get the height of a waveform. It simply the visible voltage range on the oscilloscope window (\textcolor{red}{AC})\\
+    Return: & Height of a signal (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void print() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Prints the primary information of the content of a binary file\\
+    Return: & None\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+
+\newpage
+\subsection{class \codet{analyzer}}\label{ssec:ref:anal}
+\subsubsection*{Description}
+
+\hspace{\parindent} --- 
+
+\subsubsection*{\codet{public enum}s}
+\begin{lstlisting}
+enum BASELINE { MODE, AVERAGE };
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to choose method to calculate the baseline level (see below)\\
+    Values: & \codet{MODE, AVERAGE}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\subsubsection*{\codet{public} members}
+\begin{lstlisting}
+analyzer( const oscilloscope* pi )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Constructor\\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{const oscilloscope* pi} & - pointer to an \codet{oscilloscope} object\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void analyze()
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & This function performs the analysis process. NOTE: before the invocation this function the \codet{oscilloscope::parse} function must have been called and the analysis config set (see Sec.~\ref{sssec:anal})\\
+    Return: & None\\
+    Arguments: & None\\
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void set_baseline_time( float interval )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Sets the range to be used during the baseline calculation (see below).
+    If \codet{interval} $<0$ or exeeds the length of a waveform the range $[0, 0.5t_{\mathrm{trigger}}]$ will be used
+
+    \Note{The \codet{parser::parse} must have been called before setting the baseline interval}\\
+    Return: & None\\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{float interval} & - right edge of the range used to calculate\\
+            & the baseline (left is zero) (in $\mu$s). Default is \codet{-1}\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void set_gate( float integral_start, float integral_stop )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to specify the integration range. The integration processis simply the sum of the voltage displacements from the baseline level:
+    \begin{equation}
+        \mathrm{integral} = \delta T \sum_{t_i\in[t_{\mathrm{start}},t_{\mathrm{stop}}]} (v_0 - v_{i}),
+    \end{equation}
+    where
+    \begin{itemize}
+        \item[] $\delta T$ - time step between two consecutive points
+        \item[] $v_0$ - the baseline level
+        \item[] $v_i$ - voltage mark of the $i$-th point
+        \item[] $t_i$ - time mark of the $i$-th point
+        \item[] $t_{\mathrm{start}}, t_{\mathrm{stop}}$ - the beginning and the end of 
+            integration, respectively
+    \end{itemize}
+    If \codet{interval\tus start} $<0$ or exceeds the length of a waveform it will be set to 0.
+    If \codet{interval\tus stop} $<0$ or exceeds the length of a waveform it will be set to the length of a waveform
+    
+    \Note{The \codet{parser::parse} must have been called before setting the gate}\\
+    Return: & None\\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{float integral\tus start} & - the time to itegrate from (in $\mu$s). Default is {-1}\\
+            \codet{float integral\tus stop} & - the time to integrate to (in $\mu$s). Default is \codet{-1}\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void set_baseline_method( BASELINE method )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to choose a method to calculate the baseline level.
+    Two methods of the baseline calculation are available in the library. The first one is the mode-method. To
+    choose it you should use the \codet{analyzer::BASELINE::MODE} as an argument. In this
+    case the baseline is calculated simply as the mode of the voltages in the specified range:
+    \begin{equation}
+        \mathrm{baseline} = \underset{t_{i} \in [0, t_{\mathrm{baseline}}] }{\mathrm{mode}}\{ v_{i} \},
+        \label{eq:ref:mode}
+    \end{equation}
+    where
+    \begin{itemize}
+        \item[] $v_{i}$ - voltage mark of the $i$-th point
+        \item[] $t_{i}$ - time mark of the $i$-th point
+        \item[] $t_{\mathrm{baseline}}$ - right edge of the range used to calculate the baseline (\codet{interval} in the \codet{analyzer::set\tus baseline\tus interval} member-function)
+    \end{itemize}
+    The second method calculates the baseline as the average value of voltages:
+    \begin{equation}
+        \mathrm{baseline} = \frac{1}{N}\sum_{t_{i} \in [0, t_{\mathrm{baseline}}]} v_{i},
+    \end{equation}
+    where $N$ is the number of points in the range from 0 to $t_{\mathrm{baseline}}$ and
+    the rest means the same as in Eq.~\eqref{eq:ref:mode}. To use it you should use the \codet{analyzer::BASELINE::AVERAGE} as an argument\\
+    Return: & None\\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{BASELINE method} & - Method identifier for the baseline calculation 
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_gate_time() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the time difference between edges of integration range (\textcolor{red}{AC})\\
+    Return: & Length of integration range (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_integral_start() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns left edge of integration range (\textcolor{red}{AC})\\
+    Return: & left edge of integration range (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_integral_stop() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns right edge of integration range (\textcolor{red}{AC})\\
+    Return: & Right edge of integration range (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_baseline() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the baseline of a signal (\textcolor{red}{AC})\\
+    Return: & Baseline level (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_amplitude() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the maximum displacement from the baseline (\textcolor{red}{AC})\\
+    Return: & Maximum amplitude (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_amplitude_time() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the time of the maximum displacement from the baseline (\textcolor{red}{AC})\\
+    Return: & Time of the maximum point (in $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_pkpk() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the voltage difference between the maximum and minimum of a waveform (\textcolor{red}{AC})\\
+    Return: & Voltage difference between the extremums (in mV)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+float get_integral() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Returns the integral over time in the range specified with the \codet{analyzer::set\tus gate} member-function (\textcolor{red}{AC})\\
+    Return: & Integral (in mV$\times$ $\mu$s)\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void print() const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Prints the result of analysis (\textcolor{red}{AC})\\
+    Return: & None\\
+    Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}

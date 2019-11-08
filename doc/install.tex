@@ -1,0 +1,62 @@
+\section{Installation}\label{sec:install}
+Everywhere in the below text it is assumed that the root directory of this software is
+\codet{<OWON\textunderscore DIR>}.
+
+\subsection{Stand-alone}
+In order to install the library you should compile dynamic library (shared object) and
+place it in standard location (\codet{/usr/lib/} in this case). The instructions are the
+following:
+\begin{lstlisting}[language=bash]
+cd <OWON_DIR>/make
+make compile
+sudo make link 
+make clean
+\end{lstlisting}
+
+Also it is useful to extend the standart include path with the path to the headers. It
+allows you, for example, not use the include option (\codet{-I}) while compiling. Place
+the following lines in your \codet{.profile}, or \codet{.bash\tus profile} if that is
+what you have.
+\begin{lstlisting}[language=bash]
+if [[ -n "$CPLUS_INCLUDE_PATH" ]]; then
+    CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/path/to/<OWON_DIR>/inc
+else
+    export CPLUS_INCLUDE_PATH=/path/to/<OWON_DIR>/inc
+fi;
+\end{lstlisting}
+where \codet{/path/to/<OWON\tus DIR>} is the absolute path to the \codet{<OWON\tus DIR>}.
+
+Now logout and login back. That's all!
+
+\subsection{ROOT-compatible}\label{ssec:install:ROOT}
+Read this section only if you intend to use ROOT CERN framework to create \codet{TTree}s
+from several binary file. For more details, see Sec.~\ref{ssec:ROOT}.
+At this stage you need to know the location of the following library in your system:
+\begin{lstlisting}
+libstdc++fs.a
+\end{lstlisting}
+You could find it, for example, by using the \codet{find} command:
+\begin{lstlisting}[language=bash]
+find /usr/lib -name "libstdc++fs.a"
+\end{lstlisting}
+In my case it prints 
+\begin{lstlisting}
+/usr/lib/gcc/x86_64-linux-gnu/5/libstdc++fs.a
+\end{lstlisting}
+Once you know the location place it in the \codet{<OWON\tus DIR>/make/CompileROOT.C} file
+(line 2 in the below code):
+\begin{lstlisting}[numbers=left]
+{
+    gSystem->AddLinkedLibs( "/usr/lib/gcc/x86_64-linux-gnu/5/libstdc++fs.a" );//place the correct path to the libstdc++fs.a
+    gSystem->AddLinkedLibs( "/usr/lib/libowonparse.so" );
+    gSystem->AddIncludePath( "-I../inc");
+    gROOT->LoadMacro( "../src/ROOT/TreeCreator/TreeCreator.cpp+" );
+    //gROOT->LoadMacro( "../src/ROOT/Drawer/Drawer.cpp+" );
+}
+\end{lstlisting}
+
+The final step is to compile everything: 
+\begin{lstlisting}[language=bash]
+cd <OWON_DIR>/make
+root -l CompileROOT.C
+\end{lstlisting}
