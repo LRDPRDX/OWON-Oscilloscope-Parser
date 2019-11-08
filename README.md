@@ -29,6 +29,7 @@ Report bugs or suggest to paradox1859@gmail.com
 
 # TODO's
 - [ ] Add polarity to channel
+- [ ] Add class to draw waveforms
 
 # Test plots
 As a test I've plotted a waveform using this library (left image) and the official software (right image). Looks pretty well :)
