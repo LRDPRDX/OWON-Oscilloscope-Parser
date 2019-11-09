@@ -4,17 +4,13 @@
 This reference guide is not considered to be complete. In this section only \codet{public}
 members are explained. This is rather a \emph{usage reference guide}.
 
-\Note{The \codet{owon::} prefix is omitted in the below code}
-
-\subsubsection*{Terminology}
-Object of each class listed below has \emph{a state}. In this context a state of an
-object is simply a set of values of its data members. 
+\Note{The \codet{owon::} prefix is omitted in the below code (except the ROOT-compatible part)}
 
 \subsection{namespace \codet{owon}}
 
 \subsubsection*{Description}
 
-\hspace{\parindent} The library is entirely contained in the \codet{owon} namespace. The
+\hspace{\parindent} The library is entirely contained in the \codet{owon} namespace (except the ROOT-compatible parts). The
 schematics of the library structure is shown in Fig.~\ref{fig:diag}.
 
 \input{tikz/structure.tex}
@@ -590,7 +586,7 @@ void print() const
 \vspace{1cm}
 
 \newpage
-\subsection{class \codet{TreeCreator}} (ROOT)\label{ssec:ref:tree}
+\subsection{class \codet{TreeCreator} (ROOT)}\label{ssec:ref:tree}
 \subsubsection*{Description}
 
 \hspace{\parindent} This class is used to create a \codet{TTree} from several binary files
@@ -618,9 +614,11 @@ TreeCreator( owon::oscilloscope* osc, const std::string& pathToDataDir, const st
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
             \codet{owon::oscilloscope* osc} & - pointer to an \codet{oscilloscope} object.                              \\ & Must be of the same model as the one used to record data\\
-            \codet{const std::string\& pathToDataDir} & -\\
-            \codet{const std::string\& pathToTreeFile} & -\\
-            \codet{const std::string\& treeFileName} & -\\
+            \codet{const std::string\& pathToDataDir} & - A valid path to the data directory (see Sec.\ref{ssec:ROOT})\\
+            \codet{const std::string\& pathToTreeFile} & - A valid path where the \codet{.root} file will be placed\\
+            \codet{const std::string\& treeFileName} & - Name of the \codet{.root} file 
+            with the resulting \codet{Tree}s
+            \\ & (without an extension)\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
@@ -631,11 +629,13 @@ void SetPathToDataDir( const std::string& pathToDataDir )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to set path to the data directory\\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{const std::string\& pathToDataDir} & -\\
+            \codet{const std::string\& pathToDataDir} & - A valid path to the directory
+            which will be used\\
+            & to iterate through to create \codet{TTree}s\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
@@ -646,11 +646,14 @@ void SetPathToTreeFile( const std::string& pathToTreeFile )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to set path to the file with the
+    resulting \codet{TTree}s\\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{const std::string\& pathToTreeFile} & -\\
+            \codet{const std::string\& pathToTreeFile} & - A valid path where the \codet{.root} file with
+            \\
+            & the resulting \codet{TTree}s will be placed\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
@@ -661,28 +664,32 @@ void SetTreeFileName( const std::string& treeFileName )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to set the name of the resulting \codet{.root} file to which the
+    resulting \codet{Tree}s will be written\\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{const std::string\& treeFileName} & -\\
+            \codet{const std::string\& treeFileName} & - Name of the file (without an extension)\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
 
 \begin{lstlisting}
-void SetGate( Double_t integralStart, Double_t integralStop )
+void SetGate( Double_t beforeTrigger, Double_t afterTrigger )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to set the range of integration \\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{Double\tus t integralStart} & -\\
-            \codet{Double\tus t integralStop} & -\\
+            \codet{Double\tus t beforeTrigger} & - pre-trigger time to start integration\\
+            \codet{Double\tus t afterTrigger} & - post-trigger time to stop integration\\
         \end{tabular}\\
+            & These arguments are in the following connection with those in the \codet{owon::analyzer::set\tus gate} function:\\
+            & \codet{integral\tus start} $=$ $t_{\mathrm{trigger}} -$ \codet{beforeTrigger} ,\\ 
+            & \codet{integral\tus stop} $=$ \codet{afterTrigger} $+ t_{\mathrm{trigger}}$\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
@@ -692,12 +699,15 @@ void SetBaselineTime( Double_t baselineTime )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to specify the range for the baseline calculation\\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{Double\tus t baselineTime} & -\\
+            \codet{Double\tus t baselineTime} & - time before trigger of the right edge\\
+            & of the interval for the baseline calculation\\
         \end{tabular}\\
+        & This argument is in the following connection with that in the \codet{owon::analyzer::set\tus baseline\tus time} function:
+        \\ & \codet{interval} $=$ $t_{\mathrm{trigger}} - $ \codet{baselineTime}\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
@@ -707,11 +717,11 @@ void SetActiveChannel( owon::CHANNEL activeChannel )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
+    Description: & Should be used to set the active channel. It will be used when constructing a \codet{TTree}\\
     Return: & None \\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{owon::CHANNEL activeChannel} & -\\
+            \codet{owon::CHANNEL activeChannel} & - The channel to use when constructing a \codet{TTree}\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
@@ -722,12 +732,9 @@ std::string GetPathToDataDir() const
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
-    Return: & \\ 
-    Arguments: &
-        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{owon::CHANNEL activeChannel} & -\\
-        \end{tabular}\\
+    Description: & Should be used to get current path to the data directory\\
+    Return: & Path to the data directory\\ 
+    Arguments: & None\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
@@ -737,12 +744,10 @@ std::string GetPathToTreeFile() const
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
-    Return: & \\ 
-    Arguments: &
-        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{owon::CHANNEL activeChannel} & -\\
-        \end{tabular}\\
+    Description: & Should be used to get current path to the file with the
+    resulting \codet{TTree}s\\
+    Return: & Path to the file\\ 
+    Arguments: & None\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
@@ -752,46 +757,51 @@ std::string GetTreeFileName() const
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
-    Return: & \\ 
-    Arguments: &
-        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{owon::CHANNEL activeChannel} & -\\
-        \end{tabular}\\
+    Description: & Should be used to get the current name of the file which the resulting \codet{TTree}s to write to\\
+    Return: & Name of the file (without an extension)\\ 
+    Arguments: & None\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
 
-\begin{lstlisting}
-void GetListOfFiles( std::vector< std::string >& fileNames,
-                     bool fullPath = true,
-                     std::string pathToParentDir = "" ) const
-\end{lstlisting}
-\begin{tabularx}{\textwidth}{rp{11cm}}
-    \toprule
-    Description: & \\
-    Return: & \\ 
-    Arguments: &
-        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{std::vector< std::string >\& fileNames} & -\\
-            \codet{bool fullPath} & -\\
-            \codet{std::string pathToParentDir} & -\\
-        \end{tabular}\\
-    \bottomrule
-\end{tabularx}
-\vspace{1cm}
+\newpage
+%\begin{lstlisting}
+%void GetListOfFiles( std::vector< std::string >& fileNames,
+%                     bool fullPath = true,
+%                     std::string pathToParentDir = "" ) const
+%\end{lstlisting}
+%\begin{tabularx}{\textwidth}{rp{11cm}}
+%    \toprule
+%    Description: & \\
+%    Return: & \\ 
+%    Arguments: &
+%        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+%            \codet{std::vector< std::string >\& fileNames} & -\\
+%            \codet{bool fullPath} & -\\
+%            \codet{std::string pathToParentDir} & -\\
+%        \end{tabular}\\
+%    \bottomrule
+%\end{tabularx}
+%\vspace{1cm}
 
 \begin{lstlisting}
 void CreateTree( SAMPLE mode = ALL, const std::string& target = "" )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
-    Description: & \\
-    Return: & \\ 
+    Description: & Create a \codet{TTree} from binaries\\
+    Return: & None \\ 
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{SAMPLE mode} & -\\
-            \codet{const std::string\& target} & -\\
+            \codet{SAMPLE mode} & - \codet{TreeCreator::SAMPLE::ALL, TreeCreator::SAMPLE::INCLUDE}\\ & or \codet{TreeCreator::SAMPLE::EXCLUDE}\\
+            \codet{const std::string\& target} & - target directory name which is used to
+            create a \codet{TTree}:\\
+            & if the first argument \codet{mode} is \codet{TreeCreator::SAMPLE::ALL} then this\\
+            & argument is ignored and all the subdirectories will be used.\\
+            & If \codet{mode} is \codet{TreeCreator::SAMPLE::INCLUDE} then only the directory\\
+            & named \codet{target} will be used.\\
+            & If \codet{mode} is \codet{TreeCreator::SAMPLE::EXCLUDE} then all the directories\\
+            & will be used except the one named \codet{target}\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}

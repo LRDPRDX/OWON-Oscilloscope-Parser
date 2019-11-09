@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.13)  9 NOV 2019 19:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.13)  10 NOV 2019 01:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1385,231 +1385,236 @@ See the caption package documentation for explanation.
 
 [6] [7] [8]) (./feedback.tex [9]) (./reference.tex [10]
 LaTeX Font Info:    Font shape `OT1/zi4/bx/n' in size <12> not available
-(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 13.
+(Font)              Font shape `OT1/zi4/b/n' tried instead on input line 9.
  (./tikz/structure.tex)
-Underfull \hbox (badness 10000) in alignment at lines 34--34
+Underfull \hbox (badness 10000) in alignment at lines 30--30
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 50--50
 [][] 
  []
 
 [11]
-Underfull \hbox (badness 10000) in alignment at lines 54--54
+Underfull \hbox (badness 10000) in alignment at lines 63--63
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 67--67
+Underfull \hbox (badness 10000) in alignment at lines 84--84
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 88--88
+Underfull \hbox (badness 10000) in alignment at lines 96--96
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 100--100
+Underfull \hbox (badness 10000) in alignment at lines 108--108
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 112--112
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in alignment at lines 124--124
+Underfull \hbox (badness 10000) in alignment at lines 120--120
 [][] 
  []
 
 [12]
-Underfull \hbox (badness 10000) in alignment at lines 141--141
+Underfull \hbox (badness 10000) in alignment at lines 137--137
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 154--154
+Underfull \hbox (badness 10000) in alignment at lines 150--150
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 166--166
+Underfull \hbox (badness 10000) in alignment at lines 162--162
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 183--183
+Underfull \hbox (badness 10000) in alignment at lines 179--179
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 195--195
+Underfull \hbox (badness 10000) in alignment at lines 191--191
 [][] 
  []
 
 [13]
-Underfull \hbox (badness 10000) in alignment at lines 207--207
+Underfull \hbox (badness 10000) in alignment at lines 203--203
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 219--219
+Underfull \hbox (badness 10000) in alignment at lines 215--215
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 231--231
+Underfull \hbox (badness 10000) in alignment at lines 227--227
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 243--243
+Underfull \hbox (badness 10000) in alignment at lines 239--239
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 255--255
+Underfull \hbox (badness 10000) in alignment at lines 251--251
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 267--267
+Underfull \hbox (badness 10000) in alignment at lines 263--263
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 279--279
+Underfull \hbox (badness 10000) in alignment at lines 275--275
 [][] 
  []
 
 [14]
-Underfull \hbox (badness 10000) in alignment at lines 291--291
+Underfull \hbox (badness 10000) in alignment at lines 287--287
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 303--303
+Underfull \hbox (badness 10000) in alignment at lines 299--299
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 315--315
+Underfull \hbox (badness 10000) in alignment at lines 311--311
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 327--327
+Underfull \hbox (badness 10000) in alignment at lines 323--323
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 339--339
+Underfull \hbox (badness 10000) in alignment at lines 335--335
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 351--351
+Underfull \hbox (badness 10000) in alignment at lines 347--347
 [][] 
  []
 
 [15]
-Underfull \hbox (badness 10000) in alignment at lines 370--370
+Underfull \hbox (badness 10000) in alignment at lines 366--366
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 385--385
+Underfull \hbox (badness 10000) in alignment at lines 381--381
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 396--396
+Underfull \hbox (badness 10000) in alignment at lines 392--392
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 415--415
+Underfull \hbox (badness 10000) in alignment at lines 411--411
 [][] 
  []
 
 
-Overfull \hbox (5.56223pt too wide) in paragraph at lines 447--447
+Overfull \hbox (5.56223pt too wide) in paragraph at lines 443--443
 []|[]| 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 447--447
+Underfull \hbox (badness 10000) in alignment at lines 443--443
 [][] 
  []
 
 [16]
-Underfull \hbox (badness 10000) in alignment at lines 481--481
+Underfull \hbox (badness 10000) in alignment at lines 477--477
 [][] 
  []
 
 [17]
-Underfull \hbox (badness 10000) in alignment at lines 493--493
+Underfull \hbox (badness 10000) in alignment at lines 489--489
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 505--505
+Underfull \hbox (badness 10000) in alignment at lines 501--501
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 517--517
+Underfull \hbox (badness 10000) in alignment at lines 513--513
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 529--529
+Underfull \hbox (badness 10000) in alignment at lines 525--525
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 541--541
+Underfull \hbox (badness 10000) in alignment at lines 537--537
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 553--553
+Underfull \hbox (badness 10000) in alignment at lines 549--549
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 565--565
+Underfull \hbox (badness 10000) in alignment at lines 561--561
 [][] 
  []
 
 [18]
-Underfull \hbox (badness 1838) in paragraph at lines 577--577
+Underfull \hbox (badness 1838) in paragraph at lines 573--573
 []|\OT1/cmr/m/n/10 Returns the in-te-gral over time in the range spec-i-fied wi
 th the
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 577--577
+Underfull \hbox (badness 10000) in alignment at lines 573--573
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 589--589
+Underfull \hbox (badness 10000) in alignment at lines 585--585
 [][] 
  []
 
 [19]
-Underfull \hbox (badness 10000) in alignment at lines 608--608
+Underfull \hbox (badness 10000) in alignment at lines 604--604
 [][] 
  []
 
 
-Overfull \hbox (117.85349pt too wide) in paragraph at lines 626--626
+Overfull \hbox (117.85349pt too wide) in paragraph at lines 624--624
 []|[]| 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 626--626
+Underfull \hbox (badness 10000) in alignment at lines 624--624
 [][] 
+ []
+
+
+Overfull \hbox (74.63121pt too wide) in paragraph at lines 641--641
+[]|[]| 
  []
 
 
@@ -1618,52 +1623,73 @@ Underfull \hbox (badness 10000) in alignment at lines 641--641
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 656--656
+Overfull \hbox (37.04774pt too wide) in paragraph at lines 659--659
+[]|[]| 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 659--659
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 671--671
-[][] 
+Overfull \hbox (31.79785pt too wide) in paragraph at lines 675--675
+[]|[]| 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 687--687
+Underfull \hbox (badness 10000) in alignment at lines 675--675
 [][] 
  []
 
 [20]
-Underfull \hbox (badness 10000) in alignment at lines 702--702
+Underfull \hbox (badness 10000) in alignment at lines 694--694
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 717--717
+Underfull \hbox (badness 1867) in paragraph at lines 712--712
+[]|\OT1/cmr/m/n/10 This ar-gu-ment is in the fol-low-ing con-nec-tion with that
+ in the
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 712--712
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 732--732
+Overfull \hbox (41.8811pt too wide) in paragraph at lines 727--727
+[]|[]| 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 727--727
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 747--747
+Underfull \hbox (badness 10000) in alignment at lines 739--739
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 762--762
+Underfull \hbox (badness 10000) in alignment at lines 752--752
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 781--781
+Underfull \hbox (badness 10000) in alignment at lines 764--764
 [][] 
  []
 
 [21]
-Underfull \hbox (badness 10000) in alignment at lines 797--797
+Overfull \hbox (110.68663pt too wide) in paragraph at lines 807--807
+[]|[]| 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 807--807
 [][] 
  []
 
@@ -1674,40 +1700,47 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 96.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 96.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 96.
 Package rerunfilecheck Info: File `users_guide.out' has not changed.
-(rerunfilecheck)             Checksum: E1AC92E7618AC0656C6A29AF9BC29509;944.
+(rerunfilecheck)             Checksum: 3785ED990A53FF70C62E413C80902202;953.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 96.
  ) 
 Here is how much of TeX's memory you used:
- 23798 strings out of 493029
- 449900 string characters out of 6136233
- 587989 words of memory out of 5000000
- 26519 multiletter control sequences out of 15000+600000
+ 23780 strings out of 493029
+ 449631 string characters out of 6136233
+ 587988 words of memory out of 5000000
+ 26505 multiletter control sequences out of 15000+600000
  10609 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,15n,78p,494b,1852s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/s
-hare/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}{/usr/share/te
-xmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fo
-nts/type1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/cm-
-super/sfrm1000.pfb>
-Output written on users_guide.pdf (22 pages, 285903 bytes).
+pdfTeX warning (dest): name{figure.caption.15} has been referenced but does n
+ot exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/sha
+re/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}{/usr/share/texm
+f/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/font
+s/type1/public/inconsolata/Inconsolata-zi4b.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfrm1000.pfb>
+Output written on users_guide.pdf (22 pages, 287431 bytes).
 PDF statistics:
- 737 PDF objects out of 1000 (max. 8388607)
- 669 compressed objects within 7 object streams
- 389 named destinations out of 1000 (max. 500000)
+ 735 PDF objects out of 1000 (max. 8388607)
+ 666 compressed objects within 7 object streams
+ 385 named destinations out of 1000 (max. 500000)
  237 words of extra memory for PDF output out of 10000 (max. 10000000)
 
