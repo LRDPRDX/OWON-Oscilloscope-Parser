@@ -29,7 +29,7 @@ Report bugs or suggest to paradox1859@gmail.com
 
 # TODO's
 - [ ] Add polarity to channel
-- [ ] Add a class to draw waveforms
+- [ ] Create a class to draw waveforms
 - [ ] Add a real example of using `TreeCreator` 
 
 # Test plots
