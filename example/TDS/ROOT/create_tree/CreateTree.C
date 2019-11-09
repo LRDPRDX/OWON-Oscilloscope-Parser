@@ -23,8 +23,11 @@ void CreateTree()
     //Set active channel
     tc.SetActiveChannel( owon::CH1 );
     //Set analysis config
-    tc.SetBaselineTime( -1 );//from 0 to 0.5*trigger (see documentation)
-    tc.SetGate( -1, 3 );//from 0 to 3us (see documentation)
+    tc.SetBaselineTime( 0 );//from 0 to trigger (see documentation)
+    tc.SetGate( 0, 3 );//from trigger to 3us after trigger (see documentation)
 
-    tc.CreateTree();
+    //To create only one TTree from the dir "./Data/First" use this
+    tc.CreateTree( TreeCreator::SAMPLE::INCLUDE, "First" );
+    //To create TTrees from all directories use this
+    //tc.CreateTree();
 }
