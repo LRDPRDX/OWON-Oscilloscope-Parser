@@ -372,14 +372,14 @@ enum BASELINE { MODE, AVERAGE };
 
 \subsubsection*{\codet{public} members}
 \begin{lstlisting}
-analyzer( const oscilloscope* pi )
+analyzer( const oscilloscope* osc )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
     Description: & Constructor\\
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{const oscilloscope* pi} & - pointer to an \codet{oscilloscope} object\\
+            \codet{const oscilloscope* osc} & - pointer to an \codet{oscilloscope} object\\
         \end{tabular}\\
     \bottomrule
 \end{tabularx}
@@ -585,6 +585,214 @@ void print() const
     Description: & Prints the result of analysis (\textcolor{red}{AC})\\
     Return: & None\\
     Arguments: & None\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\newpage
+\subsection{class \codet{TreeCreator}} (ROOT)\label{ssec:ref:tree}
+\subsubsection*{Description}
+
+\hspace{\parindent} This class is used to create a \codet{TTree} from several binary files
+
+\subsubsection*{\codet{public enum}s}
+\begin{lstlisting}
+enum SAMPLE { ALL, INCLUDE, EXCLUDE };
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Should be used to choose what directories to include when constructing
+    a tree. See the \codet{TreeCreator::CreateTree} function\\
+    Values: & \codet{ALL, INCLUDE, EXCLUDE}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\subsubsection*{\codet{public} members}
+\begin{lstlisting}
+TreeCreator( owon::oscilloscope* osc, const std::string& pathToDataDir, const std::string& pathToTreeFile, const std::treeFileName )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & Constructor\\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{owon::oscilloscope* osc} & - pointer to an \codet{oscilloscope} object.                              \\ & Must be of the same model as the one used to record data\\
+            \codet{const std::string\& pathToDataDir} & -\\
+            \codet{const std::string\& pathToTreeFile} & -\\
+            \codet{const std::string\& treeFileName} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetPathToDataDir( const std::string& pathToDataDir )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{const std::string\& pathToDataDir} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetPathToTreeFile( const std::string& pathToTreeFile )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{const std::string\& pathToTreeFile} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetTreeFileName( const std::string& treeFileName )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{const std::string\& treeFileName} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetGate( Double_t integralStart, Double_t integralStop )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{Double\tus t integralStart} & -\\
+            \codet{Double\tus t integralStop} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetBaselineTime( Double_t baselineTime )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{Double\tus t baselineTime} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void SetActiveChannel( owon::CHANNEL activeChannel )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & None \\
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{owon::CHANNEL activeChannel} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+std::string GetPathToDataDir() const 
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & \\ 
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{owon::CHANNEL activeChannel} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+std::string GetPathToTreeFile() const 
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & \\ 
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{owon::CHANNEL activeChannel} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+std::string GetTreeFileName() const 
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & \\ 
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{owon::CHANNEL activeChannel} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void GetListOfFiles( std::vector< std::string >& fileNames,
+                     bool fullPath = true,
+                     std::string pathToParentDir = "" ) const
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & \\ 
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{std::vector< std::string >\& fileNames} & -\\
+            \codet{bool fullPath} & -\\
+            \codet{std::string pathToParentDir} & -\\
+        \end{tabular}\\
+    \bottomrule
+\end{tabularx}
+\vspace{1cm}
+
+\begin{lstlisting}
+void CreateTree( SAMPLE mode = ALL, const std::string& target = "" )
+\end{lstlisting}
+\begin{tabularx}{\textwidth}{rp{11cm}}
+    \toprule
+    Description: & \\
+    Return: & \\ 
+    Arguments: &
+        \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
+            \codet{SAMPLE mode} & -\\
+            \codet{const std::string\& target} & -\\
+        \end{tabular}\\
     \bottomrule
 \end{tabularx}
 \vspace{1cm}
