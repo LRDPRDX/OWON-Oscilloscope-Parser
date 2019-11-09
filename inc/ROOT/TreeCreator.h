@@ -30,8 +30,8 @@ class TreeCreator
         std::string         fTreeFileName;
 
         Double_t            fBaselineTime;
-        Double_t            fIntegralStart;
-        Double_t            fIntegralStop;
+        Double_t            fBeforeTrigger;
+        Double_t            fAfterTrigger;
 
         //Auxiliary methods
         std::string     MergePaths( const std::string& parent, const std::string& child ) const;
@@ -50,9 +50,9 @@ class TreeCreator
             fPathToDataDir( pathToDataDir ),
             fPathToTreeFile( pathToTreeFile ),
             fTreeFileName( treeFileName + ".root" ),
-            fBaselineTime( -1 ),
-            fIntegralStart( -1 ),
-            fIntegralStop( -1 )
+            fBaselineTime( 0 ),
+            fBeforeTrigger( 0 ),
+            fAfterTrigger( 0 )
         {
             if( osc == nullptr )
             {
@@ -73,10 +73,10 @@ class TreeCreator
         {
             fTreeFileName = treeFileName + ".root";
         } 
-        void SetGate( Double_t integralStart, Double_t integralStop )
+        void SetGate( Double_t beforeTrigger, Double_t afterTrigger )
         {
-            fIntegralStart = integralStart;
-            fIntegralStop = integralStop;
+            fBeforeTrigger = beforeTrigger;
+            fAfterTrigger = afterTrigger;
         } 
         void SetBaselineTime( Double_t baselineTime )
         {

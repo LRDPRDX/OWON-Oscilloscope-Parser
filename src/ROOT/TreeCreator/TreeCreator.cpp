@@ -203,14 +203,15 @@ void TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
             fOsc->parse( file );
             fOsc->set_active_channel( fActiveChannel );
 
-            analyzerObject.set_gate( fIntegralStart, fIntegralStop );
-            analyzerObject.set_baseline_time( fBaselineTime );
+            triggerTime = fOsc->get_trigger_time();
+
+            analyzerObject.set_gate( triggerTime - fBeforeTrigger, triggerTime + fAfterTrigger );
+            analyzerObject.set_baseline_time( triggerTime - fBaselineTime );
             analyzerObject.analyze();
 
             baseline = analyzerObject.get_baseline();
             amplitude = analyzerObject.get_amplitude();
             amplitudeTime = analyzerObject.get_amplitude_time();
-            triggerTime = fOsc->get_trigger_time();
             timeStep = fOsc->get_time_step();
             integral = analyzerObject.get_integral();
             pkpk = analyzerObject.get_pkpk();
