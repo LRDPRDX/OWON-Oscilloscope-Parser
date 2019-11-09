@@ -28,6 +28,6 @@ void CreateTree()
 
     //To create only one TTree from the dir "./Data/First" use this
     tc.CreateTree( TreeCreator::SAMPLE::INCLUDE, "First" );
-    //To create TTrees from all directories use this
+    //To create TTrees using all directories use this
     //tc.CreateTree();
 }
