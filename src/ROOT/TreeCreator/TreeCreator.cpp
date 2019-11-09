@@ -6,7 +6,7 @@
 
 
 std::string TreeCreator::MergePaths( const std::string& parent,
-                                     const std::string& child )
+                                     const std::string& child ) const
 {
     if( parent.empty()  and  child.empty() )
     {
@@ -36,7 +36,7 @@ std::string TreeCreator::MergePaths( const std::string& parent,
 
 
 bool TreeCreator::CompareExtension( const std::string& fileName,
-                                    const std::string& extension )
+                                    const std::string& extension ) const
 {
     if( fileName.length() > extension.length() )
     {
@@ -57,7 +57,7 @@ bool TreeCreator::CompareExtension( const std::string& fileName,
 
 
 void TreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
-                                    bool fullPath )
+                                    bool fullPath ) const
 {
     sampleNames.clear();
 
@@ -99,7 +99,7 @@ void TreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
 
 void TreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
                                   bool fullPath,
-                                  std::string pathToParentDir )
+                                  std::string pathToParentDir ) const
 {
     fileNames.clear();
     if( pathToParentDir == "" ) { pathToParentDir = fPathToDataDir; }
@@ -141,7 +141,7 @@ void TreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
 }
 
 
-bool TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
+void TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
 {
     std::vector< std::string > samples;
     GetListOfSamples( samples, false );
@@ -196,7 +196,6 @@ bool TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
         analyzerObject.set_baseline_method( owon::analyzer::BASELINE::AVERAGE );
 
         std::vector< std::string > files;
-
         GetListOfFiles( files, true, MergePaths( fPathToDataDir, sample ) );
 
         for( auto file : files )
@@ -229,6 +228,4 @@ bool TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
 
     fileTree->Close();
     delete fileTree;
-
-    return true; 
 }

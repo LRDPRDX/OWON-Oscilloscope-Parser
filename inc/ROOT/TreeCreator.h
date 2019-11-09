@@ -34,8 +34,8 @@ class TreeCreator
         Double_t            fIntegralStop;
 
         //Auxiliary methods
-        std::string     MergePaths( const std::string& parent, const std::string& child );
-        bool            CompareExtension( const std::string& fileName, const std::string& extension ); 
+        std::string     MergePaths( const std::string& parent, const std::string& child ) const;
+        bool            CompareExtension( const std::string& fileName, const std::string& extension ) const; 
 
     public:
         enum SAMPLE { ALL, INCLUDE, EXCLUDE };
@@ -88,17 +88,17 @@ class TreeCreator
         }
 
     public:
-        std::string GetPathToDataDir() { return fPathToDataDir; }
-        std::string GetPathToTreeFile() { return fPathToTreeFile; }
-        std::string GetTreeFileName() { return fTreeFileName; }
+        std::string GetPathToDataDir() const { return fPathToDataDir; }
+        std::string GetPathToTreeFile() const { return fPathToTreeFile; }
+        std::string GetTreeFileName() const { return fTreeFileName; }
 
         void GetListOfSamples( std::vector< std::string >& sampleNames,
-                               bool fullPath = true );
+                               bool fullPath = true ) const;
         void GetListOfFiles( std::vector< std::string >& fileNames,
                              bool fullPath = true,
-                             std::string pathToParentDir = "" );
+                             std::string pathToParentDir = "" ) const;
 
     public:
-        bool CreateTree( SAMPLE mode = ALL, const std::string& target = "" );
+        void CreateTree( SAMPLE mode = ALL, const std::string& target = "" );
 };
 #endif
