@@ -8,7 +8,7 @@
 
 //Parsing library includes
 #include "device/sds6062.h"
-#include "analyzer.h"
+#include "owon_analyzer.h"
 
 
 namespace sds = owon::sds6062;

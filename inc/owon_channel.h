@@ -1,5 +1,5 @@
-#ifndef CHANNEL_H
-#define CHANNEL_H
+#ifndef OWON_CHANNEL_H
+#define OWON_CHANNEL_H
 
 #include <ostream>
 #include <vector>

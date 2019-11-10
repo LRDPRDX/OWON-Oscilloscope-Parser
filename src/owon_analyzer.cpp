@@ -1,15 +1,15 @@
 #include <cmath>
 #include <algorithm>
 
-#include "analyzer.h"
-#include "oscilloscope.h"
+#include "owon_analyzer.h"
+#include "owon_oscilloscope.h"
 #include "owon.h"
 
 
 namespace owon
 {
-    analyzer::analyzer( const oscilloscope* pi ) :
-        pi( pi ),
+    analyzer::analyzer( const oscilloscope* osc ) :
+        osc( osc ),
 
         integral_start( -1. ),
         integral_stop( -1. ),
@@ -22,7 +22,7 @@ namespace owon
         pkpk( 0. ),
         integral( 0. )
     {
-        if( pi == nullptr )
+        if( osc == nullptr )
         {
             throw std::invalid_argument( "Pointer to parser object is invalid" );
         }
@@ -72,8 +72,8 @@ namespace owon
     {
         baseline = 0.;
         size_t n_points = 0;
-        for( oscilloscope::const_point_iterator point = pi->cbegin();
-             point != pi->cend();
+        for( oscilloscope::const_point_iterator point = osc->cbegin();
+             point != osc->cend();
              ++point, n_points++ )
         {
             if( point->time >= baseline_time )
@@ -95,8 +95,8 @@ namespace owon
         std::vector< float > baseline_vector;
 
         //fill baseline_vector with points before the trigger
-        for( oscilloscope::const_point_iterator point = pi->cbegin();
-             point != pi->cend();
+        for( oscilloscope::const_point_iterator point = osc->cbegin();
+             point != osc->cend();
              ++point )
         {
             if( point->time >= baseline_time )
@@ -132,7 +132,7 @@ namespace owon
     {
         reset();
 
-        if( !pi->get_status() )
+        if( !osc->get_status() )
         {
             print_warning( "STATUS: NOT PARSED (from analyze)" );
             return;
@@ -154,8 +154,8 @@ namespace owon
         float voltage_max = 0.;
         float voltage_min = 0.;
 
-        for( oscilloscope::const_point_iterator point = pi->cbegin();
-             point != pi->cend();
+        for( oscilloscope::const_point_iterator point = osc->cbegin();
+             point != osc->cend();
              ++point )
         {
             static bool first_point = true;
@@ -191,7 +191,7 @@ namespace owon
         }
 
         pkpk = voltage_max - voltage_min;
-        integral *= pi->get_time_step(); 
+        integral *= osc->get_time_step(); 
 
         reset_intervals();
     }
@@ -199,10 +199,10 @@ namespace owon
 
     void analyzer::set_gate( float start, float stop )
     {
-        if( pi->get_status() )
+        if( osc->get_status() )
         {
-            if( (start < 0.0) || (start > pi->get_length()) ) { start = 0.0; }
-            if( (stop < 0.0) || (stop > pi->get_length()) ) { stop = pi->get_length(); }
+            if( (start < 0.0) || (start > osc->get_length()) ) { start = 0.0; }
+            if( (stop < 0.0) || (stop > osc->get_length()) ) { stop = osc->get_length(); }
 
             this->integral_start = start;
             this->integral_stop = stop;
@@ -218,11 +218,11 @@ namespace owon
 
     void analyzer::set_baseline_time( float interval )
     {
-        if( pi->get_status() )
+        if( osc->get_status() )
         {
-            if( (interval < 0.0) || (interval > pi->get_length()) )
+            if( (interval < 0.0) || (interval > osc->get_length()) )
             {
-                interval = 0.5 * pi->get_trigger_time();
+                interval = 0.5 * osc->get_trigger_time();
             }
             this->baseline_time = interval;
         }

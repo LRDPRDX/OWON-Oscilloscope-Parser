@@ -5,7 +5,7 @@
 #include <string>
 
 //local includes
-#include "oscilloscope.h"
+#include "owon_oscilloscope.h"
 
 
 namespace owon

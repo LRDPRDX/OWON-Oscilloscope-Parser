@@ -8,7 +8,7 @@
 
 //Parsing library includes
 #include "device/tds8204.h"
-#include "analyzer.h"
+#include "owon_analyzer.h"
 
 
 namespace tds = owon::tds8204;

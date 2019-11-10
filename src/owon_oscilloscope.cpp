@@ -1,5 +1,5 @@
 #include "owon.h"
-#include "oscilloscope.h"
+#include "owon_oscilloscope.h"
 
 
 namespace owon

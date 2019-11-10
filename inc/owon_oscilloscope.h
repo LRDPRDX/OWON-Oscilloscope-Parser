@@ -1,12 +1,12 @@
-#ifndef OSCILLOSCOPE_H
-#define OSCILLOSCOPE_H
+#ifndef OWON_OSCILLOSCOPE_H
+#define OWON_OSCILLOSCOPE_H
 
 #include <vector>
 #include <iostream>
 #include <string>
 
 //local includes
-#include "channel.h"
+#include "owon_channel.h"
 
 
 namespace owon

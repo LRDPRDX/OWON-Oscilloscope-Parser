@@ -1,10 +1,10 @@
 /*
  * Class to create TTree from list of .bin files
  */
-#ifndef TREE_CREATOR_H
-#define TREE_CREATOR_H
+#ifndef OWON_TREE_CREATOR_H
+#define OWON_TREE_CREATOR_H
 
-#include "../inc/oscilloscope.h"
+#include "../inc/owon_oscilloscope.h"
 
 #include <experimental/filesystem>
 #include <vector>

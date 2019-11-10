@@ -1,4 +1,4 @@
-#include "channel.h"
+#include "owon_channel.h"
 #include "owon.h"
 
 

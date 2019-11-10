@@ -1,5 +1,5 @@
-#ifndef ANALYZER_H
-#define ANALYZER_H
+#ifndef OWON_ANALYZER_H
+#define OWON_ANALYZER_H
 
 
 #include <stdexcept>
@@ -13,7 +13,7 @@ namespace owon
     class analyzer
     {
         protected :
-            const oscilloscope* pi; 
+            const oscilloscope* osc; 
 
         //Auxiliary data 
         public :
@@ -45,7 +45,7 @@ namespace owon
 
 
         public :
-            analyzer( const oscilloscope* pi );
+            analyzer( const oscilloscope* osc );
 
             void analyze();
 
