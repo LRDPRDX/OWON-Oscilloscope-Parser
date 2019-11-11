@@ -19,7 +19,7 @@
 namespace fs = std::experimental::filesystem; 
 
 
-class TreeCreator
+class OwonTreeCreator
 {
     protected :
         owon::oscilloscope* fOsc;
@@ -41,10 +41,10 @@ class TreeCreator
         enum SAMPLE { ALL, INCLUDE, EXCLUDE };
 
     public :
-        TreeCreator( owon::oscilloscope* osc,
-                     const std::string& pathToDataDir,
-                     const std::string& pathToTreeFile,
-                     const std::string& treeFileName ) :
+        OwonTreeCreator( owon::oscilloscope* osc,
+                         const std::string& pathToDataDir,
+                         const std::string& pathToTreeFile,
+                         const std::string& treeFileName ) :
             fOsc( osc ),
             fActiveChannel( owon::CH1 ),
             fPathToDataDir( pathToDataDir ),

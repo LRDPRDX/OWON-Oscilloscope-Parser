@@ -1,3 +1,3 @@
 {
-    gSystem->AddLinkedLibs( "../../../../src/ROOT/TreeCreator/TreeCreator_cpp.so" );
+    gSystem->AddLinkedLibs( "../../../../src/ROOT/OwonTreeCreator/OwonTreeCreator_cpp.so" );
 }

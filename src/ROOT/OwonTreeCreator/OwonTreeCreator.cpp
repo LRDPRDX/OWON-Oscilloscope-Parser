@@ -1,11 +1,11 @@
-#include "ROOT/TreeCreator.h"
+#include "ROOT/OwonTreeCreator.h"
 
-#include "analyzer.h"
+#include "owon_analyzer.h"
 #include <TFile.h>
 #include <TTree.h>
 
 
-std::string TreeCreator::MergePaths( const std::string& parent,
+std::string OwonTreeCreator::MergePaths( const std::string& parent,
                                      const std::string& child ) const
 {
     if( parent.empty()  and  child.empty() )
@@ -35,7 +35,7 @@ std::string TreeCreator::MergePaths( const std::string& parent,
 }
 
 
-bool TreeCreator::CompareExtension( const std::string& fileName,
+bool OwonTreeCreator::CompareExtension( const std::string& fileName,
                                     const std::string& extension ) const
 {
     if( fileName.length() > extension.length() )
@@ -56,7 +56,7 @@ bool TreeCreator::CompareExtension( const std::string& fileName,
 }
 
 
-void TreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
+void OwonTreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
                                     bool fullPath ) const
 {
     sampleNames.clear();
@@ -97,7 +97,7 @@ void TreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
 }
 
 
-void TreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
+void OwonTreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
                                   bool fullPath,
                                   std::string pathToParentDir ) const
 {
@@ -141,7 +141,7 @@ void TreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
 }
 
 
-void TreeCreator::CreateTree( SAMPLE mode, const std::string& target )
+void OwonTreeCreator::CreateTree( SAMPLE mode, const std::string& target )
 {
     std::vector< std::string > samples;
     GetListOfSamples( samples, false );

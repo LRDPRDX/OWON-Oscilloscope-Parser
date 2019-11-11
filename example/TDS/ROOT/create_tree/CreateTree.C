@@ -1,4 +1,4 @@
-#include "ROOT/TreeCreator.h"
+#include "ROOT/OwonTreeCreator.h"
 #include "device/tds8204.h"
 
 
@@ -19,7 +19,7 @@ void CreateTree()
     //
     //The fourth argument --- the name of the file
     //where the resulting TTree will be placed (without an extension)
-    TreeCreator tc( &p, "./Data/", "./", "myFirstTree" );
+    OwonTreeCreator tc( &p, "./Data/", "./", "myFirstTree" );
     //Set active channel
     tc.SetActiveChannel( owon::CH1 );
     //Set analysis config
@@ -27,7 +27,7 @@ void CreateTree()
     tc.SetGate( 0, 3 );//from trigger to 3us after trigger (see documentation)
 
     //To create only one TTree from the dir "./Data/First" use this
-    tc.CreateTree( TreeCreator::SAMPLE::INCLUDE, "First" );
+    tc.CreateTree( OwonTreeCreator::SAMPLE::INCLUDE, "First" );
     //To create TTrees using all directories use this
     //tc.CreateTree();
 }

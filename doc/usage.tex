@@ -210,9 +210,9 @@ should be used to create a \codet{TTree} from a set of a binary files:
 \begin{enumerate}
     \item Create an instance of the \codet{parser} class in the model namespace
         corresponding to the model of an oscilloscope that was used to record waveforms
-    \item Create an instance of the \codet{TreeCreator} class using previously created
+    \item Create an instance of the \codet{OwonTreeCreator} class using previously created
         \codet{parser}
-    \item Set analysis config and the active channel using member-functions of the \codet{TreeCreator} class
+    \item Set analysis config and the active channel using member-functions of the \codet{OwonTreeCreator} class
     \item Call the \codet{CreateTree} member-function
     \item Compile and run
     \label{algo:tree}
@@ -220,15 +220,15 @@ should be used to create a \codet{TTree} from a set of a binary files:
 \end{enumerate}
 Below is the explanation of the above algorithm in detail. 
 
-\paragraph*{The \codet{TreeCreator} class.} This class is responsible for (no surprise) 
+\paragraph*{The \codet{OwonTreeCreator} class.} This class is responsible for (no surprise) 
 creation of a \codet{TTree} from 
 To create an instance of this class you, firstly, include its header:
 \begin{lstlisting}
-#include "ROOT/TreeCreator.h"
+#include "ROOT/OwonTreeCreator.h"
 \end{lstlisting}
 Then you use the only constructor of this class which takes four arguments:
 \begin{lstlisting}
-TreeCreator( owon::oscilloscope* osc,
+OwonTreeCreator( owon::oscilloscope* osc,
                const std::string& pathToDataDir,
                const std::string& pathToTreeFile,
                const std::string& treeFileName )
@@ -255,7 +255,7 @@ path
      |__file2.bin
      |__...
 \end{lstlisting}
-In this case, provided the second argument in the \codet{TreeCreator} constructor
+In this case, provided the second argument in the \codet{OwonTreeCreator} constructor
 was \codet{"path/to/data"}, THE ONLY \codet{TTree} named \codet{tree\tus} would be constructed
 from all the binaries in the \codet{data} directory. If, on the other hand, the target
 directory contains other directories, for example:
@@ -278,7 +278,7 @@ path
       |__file2.bin
       |__...
 \end{lstlisting}
-then, provided the second argument in the \codet{TreeCreator} constructor
+then, provided the second argument in the \codet{OwonTreeCreator} constructor
 was \codet{"path/to/data"}, TWO \codet{TTree}s named \codet{tree\tus data1} and
 \codet{tree\tus data2} would be constructed from all the binaries in the \codet{data1} and
 \codet{data2} directory (and in its subdirectories), respectively.
@@ -312,7 +312,7 @@ path
 However, the path (see below) of the every binary is conserved in the resulting
 \codet{TTree}.
 
-After the instantiating the \codet{TreeCreator} you should set the analysis config and
+After the instantiating the \codet{OwonTreeCreator} you should set the analysis config and
 the active channel
 (see Sec.~\ref{sssec:anal}) which will be used when constructing the \codet{TTree}:
 \begin{lstlisting}
@@ -321,12 +321,12 @@ the active channel
     tc.SetActiveChannel( owon::CH1 );//the default one
 \end{lstlisting}
 
-\Note{Setting the analysis config for the \codet{TreeCreator} class differs slightly from that for the \codet{analyzer} class (see~Sec.\ref{ssec:ref:tree})}
+\Note{Setting the analysis config for the \codet{OwonTreeCreator} class differs slightly from that for the \codet{analyzer} class (see~Sec.\ref{ssec:ref:tree})}
 
 After that you call the \codet{CreateTree} member-function. The whole code could be:
 
 \begin{lstlisting}
-#include "ROOT/TreeCreator.h"
+#include "ROOT/OwonTreeCreator.h"
 
 #include "device/tds8204.h"
 
@@ -335,7 +335,7 @@ void CreateTree()
 {
     owon::tds8204::parser p;//OWON TDS8204 was used for recording
 
-    TreeCreator tc( &p, "./Data", "./", "myFirstTree" );
+    OwonTreeCreator tc( &p, "./Data", "./", "myFirstTree" );
     tc.SetBaselineTime( 0 );
     tc.SetGate( 0, 3 );
     tc.SetActiveChannel( owon::CH1 );//the default one
@@ -348,7 +348,7 @@ void CreateTree()
 where you put this example with the following line:
 \begin{lstlisting}
 {
-    gSystem->AddLinkedLibs( "path/to/<OWON_DIR>/src/ROOT/TreeCreator/TreeCreator_cpp.so" );
+    gSystem->AddLinkedLibs( "path/to/<OWON_DIR>/src/ROOT/OwonTreeCreator/OwonTreeCreator_cpp.so" );
 }
 \end{lstlisting}
 where \codet{/path/to/<OWON\tus DIR>} is the absolute path to the \codet{<OWON\tus DIR>}.

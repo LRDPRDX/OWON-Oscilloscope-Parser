@@ -586,7 +586,7 @@ void print() const
 \vspace{1cm}
 
 \newpage
-\subsection{class \codet{TreeCreator} (ROOT)}\label{ssec:ref:tree}
+\subsection{class \codet{OwonTreeCreator} (ROOT)}\label{ssec:ref:tree}
 \subsubsection*{Description}
 
 \hspace{\parindent} This class is used to create a \codet{TTree} from several binary files
@@ -598,7 +598,7 @@ enum SAMPLE { ALL, INCLUDE, EXCLUDE };
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
     Description: & Should be used to choose what directories to include when constructing
-    a tree. See the \codet{TreeCreator::CreateTree} function\\
+    a tree. See the \codet{OwonTreeCreator::CreateTree} function\\
     Values: & \codet{ALL, INCLUDE, EXCLUDE}\\
     \bottomrule
 \end{tabularx}
@@ -606,7 +606,7 @@ enum SAMPLE { ALL, INCLUDE, EXCLUDE };
 
 \subsubsection*{\codet{public} members}
 \begin{lstlisting}
-TreeCreator( owon::oscilloscope* osc, const std::string& pathToDataDir, const std::string& pathToTreeFile, const std::treeFileName )
+OwonTreeCreator( owon::oscilloscope* osc, const std::string& pathToDataDir, const std::string& pathToTreeFile, const std::treeFileName )
 \end{lstlisting}
 \begin{tabularx}{\textwidth}{rp{11cm}}
     \toprule
@@ -793,14 +793,14 @@ void CreateTree( SAMPLE mode = ALL, const std::string& target = "" )
     Return: & None \\ 
     Arguments: &
         \begin{tabular}[t]{@{\hspace{0em}}l@{}@{\hspace{1em}}l@{}l}
-            \codet{SAMPLE mode} & - \codet{TreeCreator::SAMPLE::ALL, TreeCreator::SAMPLE::INCLUDE}\\ & or \codet{TreeCreator::SAMPLE::EXCLUDE}\\
+            \codet{SAMPLE mode} & - \codet{OwonTreeCreator::SAMPLE::ALL, OwonTreeCreator::SAMPLE::INCLUDE}\\ & or \codet{OwonTreeCreator::SAMPLE::EXCLUDE}\\
             \codet{const std::string\& target} & - target directory name which is used to
             create a \codet{TTree}:\\
-            & if the first argument \codet{mode} is \codet{TreeCreator::SAMPLE::ALL} then this\\
+            & if the first argument \codet{mode} is \codet{OwonTreeCreator::SAMPLE::ALL} then this\\
             & argument is ignored and all the subdirectories will be used.\\
-            & If \codet{mode} is \codet{TreeCreator::SAMPLE::INCLUDE} then only the directory\\
+            & If \codet{mode} is \codet{OwonTreeCreator::SAMPLE::INCLUDE} then only the directory\\
             & named \codet{target} will be used.\\
-            & If \codet{mode} is \codet{TreeCreator::SAMPLE::EXCLUDE} then all the directories\\
+            & If \codet{mode} is \codet{OwonTreeCreator::SAMPLE::EXCLUDE} then all the directories\\
             & will be used except the one named \codet{target}\\
         \end{tabular}\\
     \bottomrule
