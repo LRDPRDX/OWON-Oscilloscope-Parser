@@ -37,6 +37,6 @@ Report bugs or suggest to paradox1859@gmail.com
 As a test I've plotted a waveform using this library (left image) and the official software (right image). Looks pretty well :)
 The code that was used to draw this picture is available here: `example/TDS/ROOT/basic`
 <p float="left">
-  <img src="https://github.com/LRDPRDX/OWON-Oscilloscope-Parser/blob/master/example/TDS/pictures/csi_tl_parser.PNG" height="250">
-  <img src="https://github.com/LRDPRDX/OWON-Oscilloscope-Parser/blob/master/example/TDS/pictures/csi_tl_soft.png" height="250">
+  <img src="example/TDS/pictures/csi_tl_parser.PNG" height="250">
+  <img src="example/TDS/pictures/csi_tl_soft.png" height="250">
 </p>
