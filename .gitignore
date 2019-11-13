@@ -13,5 +13,9 @@
 /example/SDS/stand_alone/sds6062/basic
 /example/SDS/stand_alone/sds7072/basic
 /example/SDS/stand_alone/sds8302/basic
+/doc/users_guide.toc
+/doc/users_guide.aux
+/doc/users_guide.out
+/doc/users_guide.log
 *.sw*
 *.sw*
