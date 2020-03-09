@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "owon.h"
 #include "owon_oscilloscope.h"
 
