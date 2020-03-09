@@ -1,5 +1,6 @@
 #include <cmath>
 #include <fstream>
+#include <stdexcept>
 
 //local includes
 #include "owon.h"
