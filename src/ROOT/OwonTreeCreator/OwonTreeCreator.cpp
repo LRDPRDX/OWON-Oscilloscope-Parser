@@ -6,9 +6,8 @@
 
 
 std::string OwonTreeCreator::MergePaths( const std::string& parent,
-                                     const std::string& child ) const
-{
-    if( parent.empty()  and  child.empty() )
+                                         const std::string& child ) const
+{ if( parent.empty()  and  child.empty() )
     {
         return "";
     }
@@ -36,7 +35,7 @@ std::string OwonTreeCreator::MergePaths( const std::string& parent,
 
 
 bool OwonTreeCreator::CompareExtension( const std::string& fileName,
-                                    const std::string& extension ) const
+                                        const std::string& extension ) const
 {
     if( fileName.length() > extension.length() )
     {
@@ -57,20 +56,20 @@ bool OwonTreeCreator::CompareExtension( const std::string& fileName,
 
 
 void OwonTreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
-                                    bool fullPath ) const
+                                        bool fullPath ) const
 {
     sampleNames.clear();
 
     try
     {
-        if( fs::exists( fPathToDataDir ) && fs::is_directory( fPathToDataDir ) )
+        if( b_fs::exists( fPathToDataDir ) && b_fs::is_directory( fPathToDataDir ) )
         {
-            fs::directory_iterator iter( fPathToDataDir );
-            fs::directory_iterator end;
+            b_fs::directory_iterator iter( fPathToDataDir );
+            b_fs::directory_iterator end;
 
             while( iter != end )
             {
-                if( fs::is_directory( iter->path() ) ) 
+                if( b_fs::is_directory( iter->path() ) ) 
                 {
                     if( fullPath )
                     {
@@ -78,10 +77,11 @@ void OwonTreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
                     }
                     else
                     {
-                        sampleNames.push_back( iter->path().filename() ); }
+                        sampleNames.push_back( iter->path().filename().string() );
+                    }
                 }
                 
-                std::error_code ec;
+                boost::system::error_code ec;
                 iter.increment( ec );
                 if( ec )
                 {
@@ -90,7 +90,7 @@ void OwonTreeCreator::GetListOfSamples( std::vector< std::string >& sampleNames,
             }
         }
     }
-    catch( std::system_error& e )
+    catch( const b_fs::filesystem_error& e )
     {
         std::cerr << "Exception :: " << e.what();
     }
@@ -106,10 +106,10 @@ void OwonTreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
 
     try
     {
-        if( fs::exists( pathToParentDir ) && fs::is_directory( pathToParentDir ) )
+        if( b_fs::exists( pathToParentDir ) && b_fs::is_directory( pathToParentDir ) )
         {
-            fs::recursive_directory_iterator iter( pathToParentDir );
-            fs::recursive_directory_iterator end;
+            b_fs::recursive_directory_iterator iter( pathToParentDir );
+            b_fs::recursive_directory_iterator end;
 
             while( iter != end )
             {
@@ -121,11 +121,11 @@ void OwonTreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
                     }
                     else
                     {
-                        fileNames.push_back( iter->path().filename() );
+                        fileNames.push_back( iter->path().filename().string() );
                     }
                 }
                 
-                std::error_code ec;
+                boost::system::error_code ec;
                 iter.increment( ec );
                 if( ec )
                 {
@@ -134,7 +134,7 @@ void OwonTreeCreator::GetListOfFiles( std::vector< std::string >& fileNames,
             }
         }
     }
-    catch( std::system_error& e )
+    catch( const b_fs::filesystem_error& e )
     {
         std::cerr << "Exception :: " << e.what();
     }

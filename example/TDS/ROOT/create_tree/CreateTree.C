@@ -26,8 +26,8 @@ void CreateTree()
     tc.SetBaselineTime( 0 );//from 0 to trigger (see documentation)
     tc.SetGate( 0, 3 );//from trigger to 3us after trigger (see documentation)
 
-    //To create only one TTree from the dir "./Data/First" use this
-    tc.CreateTree( OwonTreeCreator::SAMPLE::INCLUDE, "First" );
-    //To create TTrees using all directories use this
-    //tc.CreateTree();
+    //To create only one TTree from the dir "./Data/First" use this line
+    //tc.CreateTree( OwonTreeCreator::SAMPLE::INCLUDE, "First" );
+    //To create TTrees using all directories use this line
+    tc.CreateTree();
 }

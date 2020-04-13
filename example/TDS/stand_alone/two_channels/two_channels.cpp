@@ -11,7 +11,7 @@ int main()
 {
     tds::parser p;  
     //p.parse( "../../../../data/parsing/Channels/Ch1Ch2Ch3/19-06-08 14_20_09_158.bin" );
-    p.parse( "../../data/csi_tl.bin" );
+    p.parse( "../../data/two_channels.bin" );
 
     std::cout << "Number of channels: " << p.get_n_channels() << '\n';
 

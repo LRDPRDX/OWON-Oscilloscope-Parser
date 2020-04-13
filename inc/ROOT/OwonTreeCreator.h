@@ -1,12 +1,12 @@
 /*
- * Class to create TTree from list of .bin files
+ * Class to create TTree from the list .bin files
  */
 #ifndef OWON_TREE_CREATOR_H
 #define OWON_TREE_CREATOR_H
 
 #include "../inc/owon_oscilloscope.h"
 
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -16,13 +16,13 @@
 #include <TROOT.h>
 
 
-namespace fs = std::experimental::filesystem; 
+namespace b_fs = boost::filesystem; 
 
 
 class OwonTreeCreator
 {
     protected :
-        owon::oscilloscope* fOsc;
+        owon::oscilloscope *fOsc;
         owon::CHANNEL       fActiveChannel;
 
         std::string         fPathToDataDir;
@@ -41,7 +41,7 @@ class OwonTreeCreator
         enum SAMPLE { ALL, INCLUDE, EXCLUDE };
 
     public :
-        OwonTreeCreator( owon::oscilloscope* osc,
+        OwonTreeCreator( owon::oscilloscope *osc,
                          const std::string& pathToDataDir,
                          const std::string& pathToTreeFile,
                          const std::string& treeFileName ) :
@@ -67,9 +67,7 @@ class OwonTreeCreator
         }
         void SetPathToTreeFile( const std::string& pathToTreeFile )
         {
-            fPathToTreeFile = pathToTreeFile;
-        }
-        void SetTreeFileName( const std::string& treeFileName )
+            fPathToTreeFile = pathToTreeFile; } void SetTreeFileName( const std::string& treeFileName )
         {
             fTreeFileName = treeFileName + ".root";
         } 
