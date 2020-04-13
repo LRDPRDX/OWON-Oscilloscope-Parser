@@ -31,31 +31,9 @@ Now logout and login back. That's all!
 \subsection{ROOT-compatible}\label{ssec:install:ROOT}
 Read this section only if you intend to use ROOT CERN framework to create \codet{TTree}s
 from several binary file. For more details, see Sec.~\ref{ssec:ROOT}.
-At this stage you need to know the location of the following library in your system:
-\begin{lstlisting}
-libstdc++fs.a
-\end{lstlisting}
-You could find it, for example, by using the \codet{find} command:
-\begin{lstlisting}[language=bash]
-find /usr/lib -name "libstdc++fs.a"
-\end{lstlisting}
-In my case it prints 
-\begin{lstlisting}
-/usr/lib/gcc/x86_64-linux-gnu/5/libstdc++fs.a
-\end{lstlisting}
-Once you know the location place it in the \codet{<OWON\tus DIR>/make/CompileROOT.C} file
-(line 2 in the below code):
-\begin{lstlisting}[numbers=left]
-{
-    gSystem->AddLinkedLibs( "/usr/lib/gcc/x86_64-linux-gnu/5/libstdc++fs.a" );//place the correct path to the libstdc++fs.a
-    gSystem->AddLinkedLibs( "/usr/lib/libowonparse.so" );
-    gSystem->AddIncludePath( "-I../inc");
-    gROOT->LoadMacro( "../src/ROOT/OwonTreeCreator/OwonTreeCreator.cpp+" );
-    //gROOT->LoadMacro( "../src/ROOT/Drawer/Drawer.cpp+" );
-}
-\end{lstlisting}
+At this stage you need to install Boost Filesystem Library on your system. Of course, ROOT should be installed also.
 
-The final step is to compile everything: 
+After all the prerequisites are installed the final step is to compile everything in `.so` object:
 \begin{lstlisting}[language=bash]
 cd <OWON_DIR>/make
 root -l CompileROOT.C
